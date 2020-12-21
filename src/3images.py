@@ -255,7 +255,7 @@ def acquire_img():
         # Error handling.
             print("An error occured. Restarting...")
             
-
+ 
 for i in range(num_run):
     acquire_img()
         
