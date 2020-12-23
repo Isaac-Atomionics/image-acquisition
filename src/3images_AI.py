@@ -8,14 +8,14 @@ import cv2
 img = pylon.PylonImage()
 tlf = pylon.TlFactory.GetInstance()
 
-num_run = 100 #number of runs
+num_run = 1000 #number of runs
     
 a = "a"
 b = "b"
 c = "c"
 
 # Save path to images folder
-savepath = 'C:/Users/Sanket/Desktop/Acquisition loop/'
+savepath = ''
 folder_date = datetime.now().strftime("%Y-%m-%d")
 folder_to_save_files = savepath 
 
@@ -113,7 +113,6 @@ def acquire_img():
 
     # Saving images.
     try:
-        print("run no. = ", i)
     # Starts acquisition and camera waits for frame trigger
         cam.AcquisitionStart.Execute()
 
@@ -127,7 +126,7 @@ def acquire_img():
             
             img.AttachGrabResultBuffer(result)
                 
-            filename = savepath + folder_date + "-img_%05d_a.png" % (lastImageNum + i)
+            filename = savepath + folder_date + "-img_%05d_a.png" % (lastImageNum + 1)
             # Save image to
             img.Save(pylon.ImageFileFormat_Png, filename)
             
@@ -144,7 +143,7 @@ def acquire_img():
 
             img.AttachGrabResultBuffer(result2)
             
-            filename = savepath + folder_date + "-img_%05d_b.png" % (lastImageNum + i)
+            filename = savepath + folder_date + "-img_%05d_b.png" % (lastImageNum + 1)
             # Save image to
             img.Save(pylon.ImageFileFormat_Png, filename)
             print(filename)
@@ -160,7 +159,7 @@ def acquire_img():
             
             img.AttachGrabResultBuffer(result3)
             
-            filename = savepath + folder_date + "-img_%05d_c.png" % (lastImageNum + i)
+            filename = savepath + folder_date + "-img_%05d_c.png" % (lastImageNum + 1)
             # Save image to
             img.Save(pylon.ImageFileFormat_Png, filename)
             print(filename)
@@ -178,6 +177,7 @@ def acquire_img():
             print("An error occured. Restarting...")
  
 for i in range(num_run):
+    print("run no. = ", i)
     acquire_img()
         
         

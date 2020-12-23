@@ -112,20 +112,19 @@ def acquire_img():
     # Saving images.
     try:
         for i in range(num_run):
-            print("run no. = ", i)
         # Starts acquisition and camera waits for frame trigger
             cam.AcquisitionStart.Execute()
     
         # Start grabbing of images, unlimited amount, default type is continuous acquisition
             cam.StartGrabbing()
             # RetrieveResult will timeout after a specified time, in ms, so set much larger than the time of a cycle
-            with cam.RetrieveResult(100000) as result:
+            with cam.RetrieveResult(10000000) as result:
         
                 # Calling AttachGrabResultBuffer creates another reference to the
                 # grab result buffer. This prevents the buffer's reuse for grabbing.
                 img.AttachGrabResultBuffer(result)
                     
-                filename = savepath + folder_date + "-img_%05d_fl.png" % (lastImageNum + i)
+                filename = savepath + folder_date + "-img_%05d_fl.png" % (lastImageNum + 1)
                 # Save image to
                 img.Save(pylon.ImageFileFormat_Png, filename)
                 
@@ -144,5 +143,6 @@ def acquire_img():
             print("An error occured. Restarting...")
             
 for i in range(num_run):
+    print("run no. = ", i)
     acquire_img()
 
